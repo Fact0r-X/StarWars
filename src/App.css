@@ -1,0 +1,44 @@
+header, footer {
+  background-color: rgba(60, 69, 67, 0.6);
+}
+
+/* header */
+
+/* main */
+
+.farGalaxy {
+  font-size: 2em;
+  letter-spacing: 0.2em;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.bottomLeft {
+  border-bottom-left-radius: 1rem;
+}
+
+.bottomRight {
+  border-bottom-right-radius: 1rem;
+}
+
+.float-start img {
+  box-shadow: 10px 10px rgba(60, 69, 67, 0.6);
+}
+
+/* footer */
+
+footer {
+  height: 6em;
+}
+
+/* Bootstrap customizing */
+
+.btn-danger {
+  background-color: rgba(204, 3, 35, 0.5);
+  color: #eedb00;
+  border: 2px solid black;
+}
+
+.border {
+  border-color: #eedb00 !important;
+}
