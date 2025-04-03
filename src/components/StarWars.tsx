@@ -1,19 +1,21 @@
-import {characters, defaultHero, starWarsInfo} from "../utils/constants.ts";
-import {useParams} from "react-router";
+import {characters, starWarsInfo} from "../utils/constants.ts";
+import {useParams, Navigate} from "react-router";
 import {useContext, useEffect} from "react";
 import {SWContext} from "../utils/context.ts";
 
 const StarWars = () => {
-
-    let {heroId = defaultHero} = useParams();
+    let {heroId} = useParams();
     const {changeHero} = useContext(SWContext);
 
     useEffect(() => {
-        if (!characters[heroId]) {
-            heroId = defaultHero;
+        if (heroId) {
+            changeHero(heroId);
         }
-        changeHero(heroId);
     }, []);
+
+    if (heroId && !characters[heroId]) {
+        return <Navigate to="/error" replace />;
+    }
 
     return (
         <div className="farGalaxy">

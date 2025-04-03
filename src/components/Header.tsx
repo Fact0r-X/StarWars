@@ -6,6 +6,10 @@ import {SWContext} from "../utils/context.ts";
 const Header = () => {
     const {hero} = useContext(SWContext);
 
+    if (!hero || !characters[hero]) {
+        return null;
+    }
+
     return (
         <header className="rounded-top-4">
             <Navigation/>
