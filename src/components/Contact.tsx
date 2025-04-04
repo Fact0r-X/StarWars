@@ -1,24 +1,23 @@
 import '../Contact.css'
 import {useContext, useEffect, useState} from "react";
-import {base_url, characters, period_month} from "../utils/constants.ts";
+import {base_url, characters, defaultHero, period_month} from "../utils/constants.ts";
 import {Planet} from "../utils/types";
-import {useParams, Navigate} from "react-router";
+import {useParams} from "react-router";
 import {SWContext} from "../utils/context.ts";
+import ErrorPage from "./ErrorPage.tsx";
 
 const Contact = () => {
     const [planets, setPlanets] = useState(['Loading...']);
-    let {heroId} = useParams();
+
+    const {heroId = defaultHero} = useParams();
     const {changeHero} = useContext(SWContext);
 
     useEffect(() => {
-        if (heroId) {
-            changeHero(heroId);
+        if (!characters[heroId]) {
+            return
         }
-    }, []);
-
-    if (heroId && !characters[heroId]) {
-        return <Navigate to="/error" replace />;
-    }
+        changeHero(heroId);
+    }, [heroId]);
 
     async function fetchPlanets(url: string) {
         const response = await fetch(url);
@@ -40,7 +39,7 @@ const Contact = () => {
         }
     }, [])
 
-    return (
+    return characters[heroId] ? (
         <form className={'containerContact'} onSubmit={e => e.preventDefault()}>
             <label>First Name
                 <input type="text" name="firstname" placeholder="Your name.."/>
@@ -61,7 +60,7 @@ const Contact = () => {
             </label>
             <button type="submit">Submit</button>
         </form>
-    );
+    ) : <ErrorPage/>;
 };
 
 export default Contact;
